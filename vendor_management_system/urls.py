@@ -19,7 +19,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 # from vendor.views import VendorViewSet, PurchaseOrderListCreateAPIView, PurchaseOrderRetrieveUpdateDestroyAPIView
 from vendor.views import PurchaseOrderListCreateAPIView, PurchaseOrderRetrieveUpdateDestroyAPIView
-
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 # router = DefaultRouter()
 # router.register(r'vendors', VendorViewSet)
 
@@ -27,6 +27,9 @@ from vendor.views import PurchaseOrderListCreateAPIView, PurchaseOrderRetrieveUp
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('vendor.urls')),
+    path('gettoken/', TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path('refreshtoken/', TokenRefreshView.as_view(), name="refresh_token"),
+    path('tokenverify/', TokenVerifyView.as_view(), name='verify-token'),
     # path('api/purchase_orders/', PurchaseOrderListCreateAPIView.as_view(), name='purchase-order-list-create'),
     # path('api/purchase_orders/<int:po_id>/', PurchaseOrderRetrieveUpdateDestroyAPIView.as_view(), name='purchase-order-retrieve-update-destroy'),
 ]
