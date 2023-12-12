@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Vendor, PurchaseOrder
 from .serializers import VendorSerializer, PurchaseOrderSerializer
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # class VendorViewSet(viewsets.ModelViewSet):
 #     queryset = Vendor.objects.all()
@@ -60,10 +62,15 @@ from .serializers import VendorSerializer, PurchaseOrderSerializer
 #         return Response(status=status.HTTP_404_NOT_FOUND)
 
 class VendorListCreateAPIView(ListCreateAPIView):
+    # authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
+    
 
 class VendorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
 
